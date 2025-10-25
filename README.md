@@ -17,4 +17,4 @@ Este proyecto busca ser la base de una plataforma moderna donde los usuarios pue
 - **Encriptación:** bcrypt
 - **Validación:** class-validator / class-transformer
 - **Entorno:** Node.js
-- **Gestor de dependencias:** npm o yarn
+- **Gestor de dependencias:** npm 

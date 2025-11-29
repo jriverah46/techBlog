@@ -9,7 +9,7 @@ Este proyecto busca ser la base de una plataforma moderna donde los usuarios pue
 ---
 
 ## 🚀 Tecnologías Utilizadas
-- **Backend:** [NestJS](https://nestjs.com/)
+- **Backend:** [NestJS]
 - **Lenguaje:** TypeScript
 - **Base de Datos:** PostgreSQL
 - **ORM:** TypeORM
@@ -18,3 +18,6 @@ Este proyecto busca ser la base de una plataforma moderna donde los usuarios pue
 - **Validación:** class-validator / class-transformer
 - **Entorno:** Node.js
 - **Gestor de dependencias:** npm 
+
+---
+

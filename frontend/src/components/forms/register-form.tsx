@@ -1,0 +1,71 @@
+"use client";
+
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/context/auth-context';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+
+const schema = z.object({
+  name: z.string().min(2, 'Ingresa tu nombre'),
+  email: z.string().email('Correo inválido'),
+  password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
+  bio: z.string().max(160, 'Máximo 160 caracteres').optional(),
+});
+
+type FormValues = z.infer<typeof schema>;
+
+export function RegisterForm() {
+  const { register: registerUser } = useAuth();
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = async (values: FormValues) => {
+    try {
+      await registerUser(values);
+      toast.success('Cuenta creada con éxito 🎉');
+      router.push('/');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'No pudimos crear tu cuenta');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div>
+        <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Nombre</label>
+        <Input placeholder="Ada Lovelace" {...register('name')} />
+        {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
+      </div>
+      <div>
+        <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Correo</label>
+        <Input type="email" placeholder="nombre@correo.com" {...register('email')} />
+        {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+      </div>
+      <div>
+        <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Contraseña</label>
+        <Input type="password" placeholder="••••••••" {...register('password')} />
+        {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
+      </div>
+      <div>
+        <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Biografía (opcional)</label>
+        <Input placeholder="Desarrolladora apasionada..." {...register('bio')} />
+        {errors.bio && <p className="mt-1 text-xs text-red-500">{errors.bio.message}</p>}
+      </div>
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? 'Creando cuenta...' : 'Crear cuenta'}
+      </Button>
+    </form>
+  );
+}
+

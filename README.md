@@ -1,6 +1,6 @@
 # 🧠 TechBlog – Plataforma completa de blog tecnológico
 
-TechBlog es una solución end-to-end para publicar, leer y discutir artículos relacionados con tecnología. El backend está construido en **NestJS + TypeORM + PostgreSQL** con autenticación **JWT**, mientras que el nuevo frontend utiliza **Next.js 16 + React 19 + TypeScript**.
+TechBlog es una solución  para publicar, leer y discutir artículos relacionados con tecnología. El backend está construido en **NestJS + TypeORM + PostgreSQL** con autenticación **JWT**, mientras que el nuevo frontend utiliza **Next.js 16 + React 19 + TypeScript**.
 
 ---
 
